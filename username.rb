@@ -2,7 +2,13 @@
 # Run `rspec /spec/username_spec.rb` to get started.
 
 def format_name(first, last)
-  nil
+  first = first.gsub(/ /, "").downcase
+  last = last.gsub(/ /, "").downcase
+	if (!first.empty? && !last.empty?) 
+  	first[0] + last
+  else
+  	nil
+  end
 end
 
 def format_year
