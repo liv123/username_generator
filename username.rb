@@ -31,15 +31,17 @@ end
 def build_username (first, last, year, i = 0)
   user_type_prefix(i) +format_name(first, last) + format_year(year)
 end
+
+$users = Hash.new 
+
 def generate_username (first, last, year, i = 0)
 	temp = build_username(first, last, year, i) 
-	if $users[:temp] != nil
-		temp = temp + "_" + $users[:temp].to_s
-		$users[:temp] += 1
+	if $users[temp].nil?
+		$users[temp] = 0
 	else
-		$users[:temp] = 1
+		$users[temp] += 1
+		temp = temp + "_" + $users[temp].to_s
 	end	
 	temp	
 end
 
-$users = Hash.new 
