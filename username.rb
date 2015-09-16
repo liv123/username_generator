@@ -13,15 +13,33 @@ def format_name(first, last)
 end
 
 def format_year(year)
-	
-	puts year.to_s[-2..-1]
 	year.to_s.length === 4 ? year.to_s[-2..-1] : nil
 end
 
 def check_privilege(i = 0)
-
+	role = ["user", "seller", "manager", "admin"]
+	if i<role.length
+	role[i]
+	else role.last
+	end	
 end
 
-def build_username
-  nil
+def user_type_prefix (i)
+	i >= 1 ? check_privilege(i) + "-" : ""
 end
+
+def build_username (first, last, year, i = 0)
+  user_type_prefix(i) +format_name(first, last) + format_year(year)
+end
+def generate_username (first, last, year, i = 0)
+	temp = build_username(first, last, year, i) 
+	if $users[:temp] != nil
+		temp = temp + "_" + $users[:temp].to_s
+		$users[:temp] += 1
+	else
+		$users[:temp] = 1
+	end	
+	temp	
+end
+
+$users = Hash.new 
